@@ -1,6 +1,6 @@
 {
   "name": "gulp-recursive-folder",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Gulp plugin to work with folders reading recursively",
   "main": "index.js",
   "directories": {
