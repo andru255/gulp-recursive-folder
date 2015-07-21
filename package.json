@@ -1,0 +1,30 @@
+{
+  "name": "gulp-recursive-folder",
+  "version": "0.9.0",
+  "description": "Gulp plugin to work with folders reading recursively",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "event-stream": "^3.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andru255/gulp-recursive-folder"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "gulpfriendly"
+  ],
+  "author": "andru255",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andru255/gulp-recursive-folder/issues"
+  },
+  "homepage": "https://github.com/andru255/gulp-recursive-folder"
+}
