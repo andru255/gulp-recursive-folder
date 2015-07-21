@@ -1,10 +1,9 @@
 # gulp-recursive-folder
 Gulp plugin that work with folders treat them recursively
 
-# Inspired and recommended of Amazing packages:
-
-[gulp-files] ( https://www.npmjs.com/package/gulp-folders )
-[gulp-recursive-concat] ( https://www.npmjs.com/package/gulp-recursive-concat )
+# Inspired of Amazing packages:
+- [gulp-folders](https://www.npmjs.com/package/gulp-folders) - Work folders like a packages
+- [gulp-recursive-concat](https://www.npmjs.com/package/gulp-recursive-concat) -  Concat files recursively
 
 # Example
 
@@ -25,7 +24,7 @@ src
     src2.js
 ```
 
-generates
+generates:
 
 ```
 src
@@ -48,7 +47,7 @@ src
     src.js
 ```
 
-Depends the usage, You can use the output value folderfound like the usage section
+Depends the usage, You can use the output object *folderfound* like the usage section
 
 ## Usage
 
@@ -59,10 +58,8 @@ var gulp = require('gulp'),
 	pathToFolder = 'path/to/folder';
 
 gulp.task('task', recursivefolder(pathToFolder, function(folderFound){
-	//This will loop over all folders inside pathToFolder main, secondary
-	//Return stream so gulp-folders can concatenate all of them
+	//This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
 	//so you still can use safely use gulp multitasking
-
     //console.log('>>folderFound.name: ', folderFound.name);
     //console.log('>>folderFound.path: ', folderFound.path);
     //console.log('>>folderFound.pathTarget: ', options.target + folderFound.pathTarget);
@@ -71,4 +68,3 @@ gulp.task('task', recursivefolder(pathToFolder, function(folderFound){
         .pipe(gulp.dest(options.target + "/" + folderFound.pathTarget));
 }));
 ```
-
