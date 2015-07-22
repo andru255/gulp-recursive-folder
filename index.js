@@ -2,6 +2,7 @@ var fs = require("fs");
 var pathLibrary = require("path");
 var es = require("event-stream");
 var foldersFound = [];
+var dirBase = "";
 
 var readDirectory = function(dir, eachFile){
     var files = fs.readdirSync(dir);
@@ -27,9 +28,7 @@ var recursiveReadFolder = function(dir, fileList){
     return fileList;
 };
 var getPathTarget = function(path){
-    var pathToArray = path.split(pathLibrary.sep);
-    pathToArray.shift();
-    return pathToArray.join(pathLibrary.sep);
+    return pathLibrary.relative(dirBase, path);
 };
 var getFolderBase = function(baseDir){
     var folder = {name: "", path: ""};
@@ -45,6 +44,7 @@ var getFolderBase = function(baseDir){
     return folder;
 };
 var taskSelf = function(dir, tasks){
+    dirBase = dir;
     return function(done){
         var folderBase = getFolderBase(dir);
         if(folderBase.name){

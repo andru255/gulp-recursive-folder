@@ -2,7 +2,7 @@ var gulp = require("gulp");
 var concat = require("gulp-concat");
 var recursiveFolder = require("./index.js");
 var options = {
-    src: "./test/src/",
+    src: "test/src/",
     target: "test/build/"
 };
 
