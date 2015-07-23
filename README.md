@@ -47,20 +47,22 @@ src
     src.js
 ```
 
-Depends the usage, You can use the output object *folderFound* like the usage section below
+Depends the usage, You can use the output object *folderFound* like the usage section
 
 ## Usage
 
 ```javascript
 var gulp = require('gulp'),
 	path = require('path'),
+	concat = require('gulp-concat'),
 	recursiveFolder = require('gulp-recursive-folder'),
+	pathToFolder = 'path/to/folder';
 	options = {
 	    readFolder: 'path/to/folder',
 	    target: 'path/to/generate'
 	}
 
-gulp.task('generateTree', recursivefolder(options.readFolder, function(folderFound){
+gulp.task('generateTree', recursivefolder(options.pathToFolder, function(folderFound){
 	//This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
     //With folderFound.name gets the folderName
     //With folderFound.path gets all folder path found
@@ -71,7 +73,7 @@ gulp.task('generateTree', recursivefolder(options.readFolder, function(folderFou
 }));
 
 //or
-gulp.task('generateConcatOfFolders', recursivefolder(options.readFolder, function(folderFound){
+gulp.task('generateConcatOfFolders', recursivefolder(options.pathToFolder, function(folderFound){
 	return gulp.src(folderFound.path + "/*.js")
         .pipe(concat(folderFound.name + ".js"))
         .pipe(gulp.dest(options.target));
