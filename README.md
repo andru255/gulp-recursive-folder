@@ -47,7 +47,7 @@ src
     src.js
 ```
 
-Depends the usage, You can use the output object *folderfound* like the usage section
+Depends the usage, You can use the output object *folderFound* like the usage section below
 
 ## Usage
 
@@ -55,16 +55,25 @@ Depends the usage, You can use the output object *folderfound* like the usage se
 var gulp = require('gulp'),
 	path = require('path'),
 	recursiveFolder = require('gulp-recursive-folder'),
-	pathToFolder = 'path/to/folder';
+	options = {
+	    readFolder: 'path/to/folder',
+	    target: 'path/to/generate'
+	}
 
-gulp.task('task', recursivefolder(pathToFolder, function(folderFound){
+gulp.task('generateTree', recursivefolder(options.readFolder, function(folderFound){
 	//This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
-	//so you still can use safely use gulp multitasking
-    //console.log('>>folderFound.name: ', folderFound.name);
-    //console.log('>>folderFound.path: ', folderFound.path);
-    //console.log('>>folderFound.pathTarget: ', options.target + folderFound.pathTarget);
+    //With folderFound.name gets the folderName
+    //With folderFound.path gets all folder path found
+    //With folderFound.pathTarget gets the relative path beginning from options.pathFolder
     return gulp.src(folderFound.path + "/*.js")
         .pipe(concat(folderFound.name + ".js"))
         .pipe(gulp.dest(options.target + "/" + folderFound.pathTarget));
+}));
+
+//or
+gulp.task('generateConcatOfFolders', recursivefolder(options.readFolder, function(folderFound){
+	return gulp.src(folderFound.path + "/*.js")
+        .pipe(concat(folderFound.name + ".js"))
+        .pipe(gulp.dest(options.target));
 }));
 ```
