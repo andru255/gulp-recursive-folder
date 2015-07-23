@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/andru255/gulp-recursive-folder/issues"
   },
-  "homepage": "https://github.com/andru255/gulp-recursive-folder"
+  "homepage": "https://github.com/andru255/gulp-recursive-folder",
+  "dependencies": {
+    "event-stream": "^3.3.1"
+  }
 }
