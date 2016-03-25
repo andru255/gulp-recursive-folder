@@ -12,7 +12,7 @@ Given the follow tree:
 ```
 src
     modules
-        excludeDir
+        debug-modules
             submodules1.js
             submodules2.js
         submodules
@@ -44,7 +44,7 @@ or
 
 ```
 src
-    excludeDir.js
+    debug-modules.js
     modules.js
     submodules.js
     subsubmodules.js
@@ -68,8 +68,8 @@ var gulp = require('gulp'),
 
 gulp.task('generateTree', recursivefolder({
         base: options.pathToFolder,
-        exclude: [    // exclude the excludeDir
-            'excludeDir'
+        exclude: [    // exclude the debug modules from thus build
+            'debug-modules'
         ] 
     }, function(folderFound){
     //This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
