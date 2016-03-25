@@ -1,6 +1,5 @@
 var fs = require("fs");
-var pathLibrary = require("path");
-var es = require("event-stream");
+var merge = require('merge2');
 var foldersFound = [];
 var dirBase = "";
 
@@ -55,7 +54,7 @@ var taskSelf = function(dir, tasks){
         if(streams.length === 0){
             done();
         }
-        return es.merge.apply(null, streams);
+        return merge(streams);
     }
 };
 module.exports = taskSelf;
