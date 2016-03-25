@@ -1,5 +1,5 @@
 var fs = require("fs");
-var path = require("path");
+var pathLibrary = require("path");
 var merge = require('merge2');
 var foldersFound = [];
 var dirBase = "";
@@ -8,19 +8,19 @@ var readDirectory = function(dir, eachFile){
     var files = fs.readdirSync(dir);
     files.forEach(eachFile);
 };
-var recursiveReadFolder = function(dir, fileList){
+var recursiveReadFolder = function(dir, exclude, fileList){
     if(typeof fileList === "undefined"){
         fileList = [];
     }
     readDirectory(dir, function(fileName){
         var filePath = pathLibrary.join(dir, fileName);
-        if(fs.statSync(filePath).isDirectory()){
+        if(fs.statSync(filePath).isDirectory() && (exclude.length < 1 || exclude.indexOf(fileName) < 0)){
             foldersFound.push({
                 name:fileName,
                 path:filePath,
                 pathTarget : getPathTarget( filePath )
             });
-            fileList = recursiveReadFolder(filePath, fileList);
+            fileList = recursiveReadFolder(filePath, exclude, fileList);
         } else {
             fileList.push(filePath);
         }
@@ -43,14 +43,17 @@ var getFolderBase = function(baseDir){
     });
     return folder;
 };
-var taskSelf = function(dir, tasks){
-    dirBase = dir;
+var taskSelf = function(options, tasks){
     return function(done){
+        // set global variables
+        dirBase = options.baseDir;
+        foldersFound = [];
+        
         var folderBase = getFolderBase(dir);
         if(folderBase.name){
             foldersFound.push(folderBase);
         }
-        recursiveReadFolder(dir);
+        recursiveReadFolder(dir, options.exclude || []);
         var streams = foldersFound.map(tasks);
         if(streams.length === 0){
             done();
