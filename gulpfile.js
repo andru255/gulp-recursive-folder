@@ -6,7 +6,7 @@ var options = {
     target: "test/build/"
 };
 
-gulp.task("recursive-concat", recursiveFolder(options.src, function(folderFound){
+gulp.task("recursive-concat", recursiveFolder({base: options.src, exclude: ['excludeDir']}, function(folderFound){
         return gulp.src(folderFound.path + "/*.js")
                     .pipe(concat(folderFound.name + ".js"))
                     .pipe(gulp.dest(options.target + "/" + folderFound.pathTarget));
