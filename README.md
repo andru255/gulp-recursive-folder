@@ -20,6 +20,10 @@ src
             subsubmodules
                 subsubmodules1.js
                 subsubmodules2.js
+		excludeDir
+            subsubmodules
+                subsubmodules1.js
+                subsubmodules2.js
     src1.js
     src2.js
 ```
@@ -62,7 +66,10 @@ var gulp = require('gulp'),
 	    target: 'path/to/generate'
 	}
 
-gulp.task('generateTree', recursivefolder(options.pathToFolder, function(folderFound){
+gulp.task('generateTree', recursivefolder({
+		base: options.pathToFolder,
+		exclude: [] // optional array of folders to exclude
+	}, function(folderFound){
 	//This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
     //With folderFound.name gets the folderName
     //With folderFound.path gets all folder path found
@@ -73,9 +80,25 @@ gulp.task('generateTree', recursivefolder(options.pathToFolder, function(folderF
 }));
 
 //or
-gulp.task('generateConcatOfFolders', recursivefolder(options.pathToFolder, function(folderFound){
-	return gulp.src(folderFound.path + "/*.js")
-        .pipe(concat(folderFound.name + ".js"))
-        .pipe(gulp.dest(options.target));
+gulp.task('generateConcatOfFolders', recursivefolder({
+		base: options.pathToFolder,
+		exclude: [] // optional array of folders to exclude
+	}, function(folderFound){
+		return gulp.src(folderFound.path + "/*.js")
+			.pipe(concat(folderFound.name + ".js"))
+			.pipe(gulp.dest(options.target));
 }));
+
+//to use it inside the task, or pipe it further
+gulp.task('generateConcatOfFolders', function(){
+	return recursivefolder({
+		base: options.pathToFolder,
+		exclude: [] // optional array of folders to exclude
+	}, function(folderFound){
+		return gulp.src(folderFound.path + "/*.js")
+			.pipe(concat(folderFound.name + ".js"));
+	})()
+		.pipe(concat("bundle.js"))
+		.pipe(gulp.dest(options.target));
+});
 ```
