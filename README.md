@@ -68,9 +68,9 @@ var gulp = require('gulp'),
 
 gulp.task('generateTree', recursivefolder({
         base: options.pathToFolder,
-        exclude: [
+        exclude: [    // exclude the excludeDir
             'excludeDir'
-        ] // optional array of folders to exclude
+        ] 
     }, function(folderFound){
     //This will loop over all folders inside pathToFolder main and recursively on the children folders, secondary
     //With folderFound.name gets the folderName
@@ -83,8 +83,7 @@ gulp.task('generateTree', recursivefolder({
 
 //or
 gulp.task('generateConcatOfFolders', recursivefolder({
-        base: options.pathToFolder,
-        exclude: [] // optional array of folders to exclude
+        base: options.pathToFolder // don't exclude anything
     }, function(folderFound){
         return gulp.src(folderFound.path + "/*.js")
             .pipe(concat(folderFound.name + ".js"))
